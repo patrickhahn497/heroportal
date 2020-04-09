@@ -1,0 +1,43 @@
+have an array of abilities. everytime you click on add, whatever is inside the box gets added 
+keep track of arraylen in state. these will act as id's
+
+len=1
+
+first ability fillin component is set to have an id of 0
+
+on clicking of +
+len is incremented by 1
+new ability fillin component made with current len passed down as id
+
+
+on edit of ability input
+copy of array is made
+appropriate changes are put in the array index corresponding to id
+
+possible issue:
+	what if you want to delete something from the middle?
+	we can try to make id independent from length
+	so make an id counter instead of length counter
+	in this case, we can use a js object with id, value pairs
+
+
+to make it easier, we can have two separate arrays
+
+one array to store ability names
+a second to store ability descriptions
+
+it is imperative that these two always remain the same length and that all the elements match one to one
+
+
+
+
+
+also have a - button to delete. 
+- doesn't delete if them length of the array is 0
+
+arraylen = 0 
+means that nothing has been put in yet
+
+
+if arraylen>=1
+the 

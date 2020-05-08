@@ -4,3 +4,21 @@
 .postingbox {
 	border: 2px solid red;
 }
+
+
+.contract-posting {
+	text-align: left;
+	margin-left: 15px;
+}
+
+.title-panel {
+	display: grid;
+	height: 110px;
+	
+	align-content: end;
+	border-bottom: 2px solid grey;
+}
+
+.title-panel h1 {
+	font-size: 2.5rem;
+}

@@ -1,0 +1,52 @@
+
+
+.outer-myjobs {
+	justify-content: center;
+	justify-items: center;
+	background-color: floralwhite;
+	height: 100vh;
+	padding-bottom: 3rem;
+	padding-top: 3rem;
+}
+
+.job-panel {
+/*	width: 60%;*/
+	display: flex;
+/*	flex: 4 2;/**/
+	justify-content: center;
+	justify-self: center;
+}
+
+.inner-job-panel {
+/*	width: 60%;*/
+	display: flex;
+/*	flex: 4 2;/**/
+	justify-content: start;
+	justify-self: center;
+	border: 1px solid grey;
+	padding: 2rem;
+	width: 60%;
+}
+
+
+.job-panel-right {
+	text-align: left;
+	justify-content: start;
+	justify-items: start;
+
+}
+
+.job-panel-title {
+	color: blue;
+}
+
+.job-panel-right {
+/*	margin-left: 1rem;*/
+
+}
+
+.job-panel-left h1 {
+	margin-right: 3rem;
+	margin-left: 3rem;
+	font-size: 4rem;
+}

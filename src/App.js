@@ -6,12 +6,18 @@ import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 import CharacterSetup from './components/CharacterSetup/CharacterSetup';
+import Home from './components/Home/Home';
+import ContractPosting from './components/ContractPosting/ContractPosting';
+import ContractSetup from './components/ContractSetup/ContractSetup';
+import MyJobs from './components/MyJobs/MyJobs';
+
 
 const initialState = {
-  route: "signin",
+  route: "home",
   isSignedIn: false,
   user: {
-    id: '3',
+    id: -1,
+    // id: 3,
     name: '',
     email: '',
     password: '',
@@ -23,85 +29,100 @@ const initialState = {
       wis: 10,
       cha: 10
     }
-  }
+  },
+  jobid : 0,
+  profileid: 0
+
+}
+const testState = {
+  route: "myjobs",
+  isSignedIn: true,
+  user: {
+    id: 22,
+    name: 'Bobaron',
+    email: '',
+    password: '',
+    attributes: {
+      str: 10,
+      dex: 10,
+      con: 10,
+      int: 10,
+      wis: 10,
+      cha: 10
+    }
+  },
+  jobid : 0,
+  profileid: 0
 }
 
 class App extends Component {
 
   constructor() {
     super();
-    this.state = {
-      route: "signin",
-      isSignedIn: false,
-      user: {
-        id: '3',
-        name: '',
-        email: '',
-        password: '',
-        attributes: {
-          str: 10,
-          dex: 10,
-          con: 10,
-          int: 10,
-          wis: 10,
-          cha: 10
-        }
-      }
-    }
+    this.state = initialState;
+    // this.state = testState;
+
   }
 
   loadUser = (user) => {
     //in the app level, loadUser should only have basic info like username and id
     //specifics like attributes should only be loaded when necessary like in the profile section
 
-    console.log("WOWWW");
-    console.log(user);
-    // this.setState({user: {
-    //   id: user.id,
-    //   name: user.name,
-    //   email: user.email,
-    //   password: user.password
-    // }});
-    //instead of doing this way, we can also make it so that we have a temp object, we alter that with each fetch statement
-    //and then set the final object to state afterwards
-    fetch('http://localhost:3000/attributes/'+this.state.user.id)
-      .then(response => response.json())
-      .then(attributes => {
-        if (attributes.id) {
-          console.log(attributes);
-          this.setState({
-            user: {
+    console.log("user id loaded: " , user);
+
+    if (user.id){
+      console.log("valid user id: " , user.id);
+      this.setState({user: {
               id: user.id,
               name: user.name,
               email: user.email,
-              password: user.password,
-              attributes: {
-                str: attributes.strength,
-                dex: attributes.dexterity,
-                con: attributes.constitution,
-                int: attributes.intelligence,
-                wis: attributes.wisdom,
-                cha: attributes.charisma
-          }
-        }})
-      }
-      console.log(this.state.user);
-    })
+              // password: user.password,
+        }});
+      this.setState({isSignedIn: true});
+    }
   }
+  
 
   onRouteChange = (route) => {
     console.log("route change");
     if (route === 'signout') {
-      // this.setState({isSignedIn: false})
+      this.setState({isSignedIn: false});
+      this.setState({route: "home"});
       this.setState(initialState);
-    } else if (route === 'home') {
-      this.setState({isSignedIn: true})
-    }
+    } 
     this.setState({route: route});
   }
 
-  pageSwitch(route){
+  onJobChange = (newjobid) => {
+    this.setState({jobid: newjobid});
+    this.setState({route: 'contractposting'});
+  }
+
+  onProfileChange = (newprofileid) => {
+    this.setState({profileid: newprofileid});
+    this.setState({route: 'profile'});
+  }
+
+  setProperty = (property, item) => {
+    // console.log("wow", item);
+    this.setState({[property]: item });
+    //console.log(this.state[property]);
+    console.log("state", this.state)
+
+  }
+
+  pageSwitch(route) {
     switch (route) {
+      case "home":
+        this.setState({route: "home"});
+      case "profile":
+        this.setState({route: "profile"});
+      case "register":
+        this.setState({route: "register"});
+      case "charactersetup":
+        this.setState({route: "charactersetup"});
+      case "contractposting":
+        this.setState({route: "contractposting"});
       default:
         return ;
     }
@@ -110,22 +131,35 @@ class App extends Component {
   render() {
     return (
       <div className="wayout">
-        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
-      	<div className="outer">
-          <div className="container shadow-2">
-            {
-              // {
-              //   'profile': <Profile loadUser={this.loadUser} user={this.state.user}/>,
-              //   'signin': <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>,
-              //   'register': <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>,
-              //   'home': <p> oopsie daisy </p>
-              // }[this.state.route]
+        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} pageSwitch={this.pageSwitch}/>
+        {
+          (this.state.route==="home") 
+          ? <Home />:
+        	<div className="outer">
+            <div className="midcontainer shadow-2">
+              {
+                {
+                  'profile': <Profile loadUser={this.loadUser} user={this.state.user}/>,
+                  'signin': <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>,
+                  'register': <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>,
+                  'charactersetup': <CharacterSetup id={this.state.user.id} onRouteChange={this.onRouteChange} />,
+                  'contractposting': <ContractPosting user={this.state.user} jobid={this.state.jobid}/>,
+                  'home': <Home/>,
+                  'contractsetup': <ContractSetup employerid={this.state.user.id} pageSwitch={this.onRouteChange} onJobChange={this.onJobChange}/>,
+                  'myjobs': <MyJobs user={this.state.user} onJobChange={this.onJobChange} onProfileChange={this.onProfileChange}/>
+                }[this.state.route]
 
-              // <CharacterSetup id={this.state.id}/>
-            }
-            <Profile loadUser={this.loadUser} user={this.state.user}/>
-          </div>
-      	</div>
+                //<Profile loadUser={this.loadUser} user={this.state.user}/>
+
+                //<CharacterSetup id={this.state.user.id}/>
+                //<ContractPosting user={this.state.user} jobid={1}/>
+                // <ContractSetup employerid={'1'} pageSwitch={this.pageSwitch}/>
+
+              }
+              
+            </div>
+        	</div>
+        }
       </div>
     
     );

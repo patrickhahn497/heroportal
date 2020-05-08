@@ -13,9 +13,9 @@ const Roles = ({roleList}) => {
 	//the top panel can potentiallly be made into its own component
 	//roles should contain title and description
 	const mapRoleToPic = {
-		"Stealth": stealthPic,
-		"Combat": combatPic,
-		"Support": supportPic
+		"stealth": stealthPic,
+		"combat": combatPic,
+		"support": supportPic
 	}
 
 	console.log("real roles", roleList);
@@ -27,20 +27,30 @@ const Roles = ({roleList}) => {
 			<div className="grid-wrapper">
 
 				{
-					Object.entries(roleList).map((role) => {
-						console.log("role: ", role[1]);
-						return (
+					(roleList=='Roles not found')
+						?<div></div>
+						:Object.values(roleList).map((role) => {
+							console.log("role: ", role);
+							const name = role["name"];
+							if (role){
+								return (
 
-							<Tooltip title={""+role[1]['description']}>
-								<div id={role[1]["name"].toLowerCase()} className="box zone">
-									<img src={mapRoleToPic[role[1]["name"]]}/>
-									<p>{role[1]["name"]}</p>
-								</div>
-							</Tooltip>
-						)
+									<Tooltip title={""+role['description']}>
+										<div id={name} className="box zone">
+											<img src={mapRoleToPic[name]}/>
+											<p> 
+												{name ? name[0].toUpperCase()+name.slice(1) : ""}
+											</p>
+										</div>
+									</Tooltip>
+								)
+							}
 
-					})
+						})
+					
 				}
+
+				
 				{
 				// <Tooltip title="Specializes in surgical operations that require a person not to be noticed.">
 

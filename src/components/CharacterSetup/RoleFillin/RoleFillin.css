@@ -1,0 +1,14 @@
+
+
+.tabletop {
+	margin-top: 10px;
+}
+
+
+td:hover {
+	color: blue;
+}
+
+td:toggle {
+	color: green;
+}

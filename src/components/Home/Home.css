@@ -1,0 +1,46 @@
+
+
+.hometitlecontainer {
+	height: 60vh;
+	background: linear-gradient(
+          rgba(0, 0, 0, 0.3), 
+          rgba(0, 0, 0, 0.3)
+        ),
+        /* bottom, image */
+        url(heroimage1.jpg) no-repeat center;
+/*	background: url(heroimage1.jpg) no-repeat center;*/
+	color: white;
+	background-size: cover;
+	width: 100%;
+/*	border: 5px solid red;*/
+	display: grid;
+    align-items: center;
+    align-content: center; 
+    justify-content: center;
+    justify-items: center;
+    grid-auto-rows: 100px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.hometitleblock {
+	background-color: transparent;
+	color: white;
+	text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+			 0px 8px 13px rgba(0,0,0,0.1),
+			 0px 18px 23px rgba(0,0,0,0.1);
+
+}
+
+.homeh1 {
+	padding: 0px 0px;
+	margin-bottom: 0px 0px;
+	font-size: 40px;
+	color: white;
+}
+
+hr {
+	width: 400px;
+	border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid rgba(0,0,0,0.2); 
+}

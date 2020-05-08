@@ -1,3 +1,9 @@
 .rightside {
 	display: flex
 }
+
+
+Navbar {
+	color: DarkOrange;
+	background-color: DarkOrange;
+}

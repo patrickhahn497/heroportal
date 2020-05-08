@@ -34,15 +34,9 @@ class Signin extends React.Component {
 			.then(user => {
 				if (user.id) {
 					this.props.loadUser(user);
-					this.props.onRouteChange('home');
+					this.props.onRouteChange('profile');
 				}
 			})
-			// .then(data => {
-			// 	if (data === 'Success!') {
-			// 		this.props.onRouteChange('home');
-			// 	}
-			// })
-		//console.log(this.state);
 	}
 
 		render() {
@@ -75,10 +69,10 @@ class Signin extends React.Component {
 					        	/>
 					      </div>
 					    </fieldset>
-					    <div className="">
+					    <div className="mv3">
 					      <input
 					      	onClick={this.onSubmitSignIn}
-					      	className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+					      	className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib w-100"
 					      	type="submit"
 					      	value="Sign in"
 						   />

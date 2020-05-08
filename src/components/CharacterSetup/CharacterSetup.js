@@ -6,6 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import StatFillin from './StatFillin/StatFillin';
 import AbilityFillin from './AbilityFillin/AbilityFillin';
 import AbilityList from './AbilityList/AbilityList';
+import RoleFillin from './RoleFillin/RoleFillin';
 import Button from 'react-bootstrap/Button';
 
 
@@ -13,6 +14,7 @@ class CharacterSetup extends React.Component {
 
 	constructor(props) {
 		super(props);
+		console.log("this the id for real in CharacterSetup", this.props.id);
 		this.state = {
 			id: this.props.id,
 			// id: 6,
@@ -29,7 +31,13 @@ class CharacterSetup extends React.Component {
 			wisdom: '10',
 			charisma: '10',
 			abilityNames: {},
-			abilityDescriptions: {}
+			abilityDescriptions: {},
+			roles: {
+				'stealth': false,
+				'combat': false,
+				'support': false
+
+			}
 			
 		}
 	}
@@ -60,6 +68,25 @@ class CharacterSetup extends React.Component {
 	// 	this.setState({abilityId: abilityId+1});
 
 	// }
+	componentDidMount(){
+		console.log("the id loaded is", this.state.id);
+		fetch('http://localhost:3000/roles')
+			.then(response => response.json())
+			.then(rolelist => {
+				console.log("roles: ", rolelist);
+				// let temproles = roles;
+				// for (let role of temproles){
+				// 	role['preference']='';
+				// }
+				let temproles = {}
+				for (let role of rolelist){
+					temproles[role.name]=false;
+				}
+				// console.log(temproles);
+				this.setState({roles: temproles});
+			})
+
+	}
 
 
 
@@ -70,6 +97,8 @@ class CharacterSetup extends React.Component {
 		this.setState({[property]:event.target.getAttribute('value') });
 		console.log(this.state[property]);
 	}
+
+
 
 	setProperty = (property, item) => {
 		// console.log("wow", item);
@@ -93,6 +122,24 @@ class CharacterSetup extends React.Component {
 		this.setState({lastname: event.target.value});
 	}
 
+	roleColor = (role) => {
+		//console.log("COLOR NEEDS TO BE CHANGED");
+		if (this.state.roles[role]){
+			//console.log('gone in here');
+			return 'green';
+		} 
+		return '';
+
+	}
+
+	onRoleSelect = (role) => {
+		//console.log("whadfhasbdfjkasdb");
+		let tempRoles = {...this.state.roles};
+		tempRoles[role] = !tempRoles[role];
+		console.log(tempRoles);
+		this.setState({roles: tempRoles});
+	}
+
 
 	// onEmailChange = (event) => {
 	// 	this.setState({email: event.target.value});
@@ -105,6 +152,14 @@ class CharacterSetup extends React.Component {
 	onSubmitCharacterSetup = () => {
 		const abilityNameArr = Object.values(this.state.abilityNames);
 		const abilityDescArr = Object.values(this.state.abilityDescriptions);
+		let roles = [];
+
+		for (let key in this.state.roles){
+			if (this.state.roles[key]){
+				roles.push({"userid": this.state.id, "rolename": key});
+			}
+		}
+		console.log("submitting user", this.state.id, this.props.id);
 
 		fetch('http://localhost:3000/charactersetup', {
 			method: 'post',
@@ -114,7 +169,7 @@ class CharacterSetup extends React.Component {
 				id: this.state.id,
 				firstname: this.state.firstname,
 				lastname: this.state.lastname,
-				name: this.state.name,
+				// name: this.state.name,
 				strength: this.state.strength,
 				dexterity: this.state.dexterity,
 				constitution: this.state.constitution,
@@ -122,19 +177,14 @@ class CharacterSetup extends React.Component {
 				wisdom: this.state.wisdom,
 				charisma: this.state.charisma,
 				abilityNames: abilityNameArr,
-				abilityDescriptions: abilityDescArr
+				abilityDescriptions: abilityDescArr,
+				roles: roles
 			})
 		})
 			.then(response => response.json())
 			.then(user => {
 				console.log(user);
-				// if (user.id) {
-				// 	console.log("character information submitted successfully");
-				// 	// console.log(user['id']);
-				// 	console.log(user);
-				// 	// this.props.loadUser(user);
-				// 	// this.props.onRouteChange('home');
-				// }
+				this.props.onRouteChange('profile');
 			})
 		//console.log(this.state);
 	}
@@ -143,22 +193,6 @@ class CharacterSetup extends React.Component {
 		const {onRouteChange} = this.props;
 		return (
 			<div className="center">
-			{
-				// <div className="mt3 formline">
-			 //        <label className="db fw6 lh-copy f6" htmlFor="heroname">Hero Name  &nbsp;  </label>
-			 //        <input 
-			 //        	className="pa2 input-reset ba bg-white hover-bg-black hover-black" 
-			 //        	type="text" 
-			 //        	name="heroname"  
-			 //        	id="heroname"
-			 //        	onChange={this.onPropertyChange('heroname')}
-			 //        />
-			 //        <button
-			 //        	type="button"
-			 //        	style={{backgroundColor: this.buttonColor('heroname')}}
-			 //        ><FaCheck/></button>
-				// </div>
-			}
 				<label className="db fw6 lh-copy f6">First Name  &nbsp;  </label>
 				<div className="mt3 formline">
 			        {//<label className="db fw6 lh-copy f6" htmlFor="firstname">First Name  &nbsp;  </label>
@@ -195,30 +229,10 @@ class CharacterSetup extends React.Component {
 				<StatFillin stat="intelligence" value={this.state.intelligence} onPropertyChange={this.onPropertyChange}/>
 				<StatFillin stat="wisdom" value={this.state.wisdom} onPropertyChange={this.onPropertyChange}/>
 				<StatFillin stat="charisma" value={this.state.charisma} onPropertyChange={this.onPropertyChange}/>
+				<RoleFillin roles={this.state.roles} onRoleSelect={this.onRoleSelect} roleColor={this.roleColor}/>
 				<div className="center">
 					<h3> Abilities </h3>
-					{
-					// <div className="ability-box">
-					// 	<div className="ability-namedesc">
-					// 		<input 
-					//         	className="pa2 input-reset ba bg-white hover-bg-black hover-black"
-					//         	placeholder="Ability Name"
-					//         	type="text" 
-					//         	onChange={this.onLastNameChange}
-					//         />
-					//         <textarea rows="5" cols="52" name="description" placeholder="Ability Description" 
-					//         className="pa2 input-reset ba bg-white hover-bg-black hover-black  ability-description">
-					//         </textarea>
-					//     </div>
-					//     <Button variant="secondary" className="add-ability-button">+</Button>{' '}
-
-					// </div>
-					//<AbilityFillin onPropertyChange={this.onPropertyChange}/>
-				}
-					<AbilityList setProperty={this.setProperty} onPropertyChange={this.onPropertyChange}/>
-
-
-					
+					<AbilityList setProperty={this.setProperty} onPropertyChange={this.onRouteChange}/>
 				</div>
 				 <Button variant="primary" onClick={this.onSubmitCharacterSetup}>Submit</Button>{' '}
 

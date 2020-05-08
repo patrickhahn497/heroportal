@@ -16,7 +16,7 @@ const Abilities = ({abilityList}) => {
 						console.log("this the data we need", abilityName);
 						return (
 								<div>
-									<h2> {abilityName} </h2>
+									<h2> {abilityName ? abilityName[0].toUpperCase() + abilityName.slice(1) : ""} </h2>
 									<p> {abilityDescription} </p>
 								</div>
 							);

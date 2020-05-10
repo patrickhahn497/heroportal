@@ -193,7 +193,6 @@ class CharacterSetup extends React.Component {
 		const {onRouteChange} = this.props;
 		return (
 			<div className="center">
-				<label className="db fw6 lh-copy f6">First Name  &nbsp;  </label>
 				<div className="mt3 formline">
 			        {//<label className="db fw6 lh-copy f6" htmlFor="firstname">First Name  &nbsp;  </label>
 			    }
@@ -203,6 +202,7 @@ class CharacterSetup extends React.Component {
 			        	name="firstname"  
 			        	id="firstname"
 			        	onChange={this.onFirstNameChange}
+			        	placeholder="First Name"
 			        />
 			        <button
 			        	type="button"
@@ -210,26 +210,31 @@ class CharacterSetup extends React.Component {
 			        ><FaCheck/></button>
 				</div>
 				<div className="mt3 formline">
-			        <label className="db fw6 lh-copy f6" htmlFor="lastname">Last Name  &nbsp;  </label>
+					{
+			        	//<label className="db fw6 lh-copy f6" htmlFor="lastname">Last Name  &nbsp;  </label>
+			    	}
 			        <input 
 			        	className="pa2 input-reset ba bg-white hover-bg-black hover-black" 
 			        	type="text" 
 			        	name="lastname"  
 			        	id="lastname"
 			        	onChange={this.onLastNameChange}
+			        	placeholder="Last Name"
 			        />
 			        <button
 			        	type="button"
 			        	style={{backgroundColor: this.buttonColor('lastname')}}
 			        ><FaCheck/></button>
 				</div>
-				<StatFillin stat="strength" value={this.state.strength} onPropertyChange={this.onPropertyChange}/>
-				<StatFillin stat="dexterity" value={this.state.dexterity} onPropertyChange={this.onPropertyChange}/>
-				<StatFillin stat="constitution" value={this.state.constitution} onPropertyChange={this.onPropertyChange}/>
-				<StatFillin stat="intelligence" value={this.state.intelligence} onPropertyChange={this.onPropertyChange}/>
-				<StatFillin stat="wisdom" value={this.state.wisdom} onPropertyChange={this.onPropertyChange}/>
-				<StatFillin stat="charisma" value={this.state.charisma} onPropertyChange={this.onPropertyChange}/>
-				<RoleFillin roles={this.state.roles} onRoleSelect={this.onRoleSelect} roleColor={this.roleColor}/>
+				<div className="stats">
+					<StatFillin stat="strength" value={this.state.strength} onPropertyChange={this.onPropertyChange}/>
+					<StatFillin stat="dexterity" value={this.state.dexterity} onPropertyChange={this.onPropertyChange}/>
+					<StatFillin stat="constitution" value={this.state.constitution} onPropertyChange={this.onPropertyChange}/>
+					<StatFillin stat="intelligence" value={this.state.intelligence} onPropertyChange={this.onPropertyChange}/>
+					<StatFillin stat="wisdom" value={this.state.wisdom} onPropertyChange={this.onPropertyChange}/>
+					<StatFillin stat="charisma" value={this.state.charisma} onPropertyChange={this.onPropertyChange}/>
+					<RoleFillin roles={this.state.roles} onRoleSelect={this.onRoleSelect} roleColor={this.roleColor}/>
+				</div>
 				<div className="center">
 					<h3> Abilities </h3>
 					<AbilityList setProperty={this.setProperty} onPropertyChange={this.onRouteChange}/>

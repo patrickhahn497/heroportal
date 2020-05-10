@@ -17,6 +17,10 @@ input {
 	overflow-y: scroll;
 }
 
+.stats {
+	display: flex;
+}
+
 
 .ability-description {
 	vertical-align: top;

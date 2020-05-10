@@ -1,5 +1,9 @@
 
 
+.home {
+	background-color: #f5f5f5;
+}
+
 .hometitlecontainer {
 	height: 60vh;
 	background: linear-gradient(
@@ -20,6 +24,7 @@
     justify-items: center;
     grid-auto-rows: 100px;
     font-family: 'Montserrat', sans-serif;
+    box-shadow: 0px 0px 8px 2px #000000;
 }
 
 
@@ -43,4 +48,19 @@ hr {
 	width: 400px;
 	border-top: 1px solid #f8f8f8;
 	border-bottom: 1px solid rgba(0,0,0,0.2); 
+}
+
+.home-bottom-panel {
+/*  display: flex;*/
+  width: 70vw;
+  margin: auto;
+  text-align: center;
+  align-content: center;
+ /* background-color: silver;*/
+/*  background-color: #f5f5f5;*/
+/*  margin-bottom: 0px;
+  flex-grow: 1;
+  flex-direction: column;*/
+/*  min-height: 100vh;*/
+
 }

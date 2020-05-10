@@ -4,6 +4,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import RoleRequirements from './RoleRequirements/RoleRequirements';
+import DropDownRole from './DropDownRole/DropDownRole';
 import './ContractPosting.css';
 
 
@@ -36,9 +37,12 @@ class ContractPosting extends React.Component {
 				title: '',
 				description: '',
 				threatrank: '',
-				reward: 0
+				reward: 0,
+				employerid: -1
 			},
-			jobroles: {'required': [], 'preferred': [], 'banned': []}
+			jobroles: {'required': [], 'preferred': [], 'banned': []},
+			applicantrole: "None",
+			appsubmitted: false
 		}
 	}
 
@@ -106,6 +110,27 @@ class ContractPosting extends React.Component {
 			return 'green';
 		}
 		return 'grey';
+	}
+
+	onAppSubmit = () => {
+		console.log("Application Submitting!");
+		fetch('http://localhost:3000/jobapplications', {
+			method: 'post',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				applicantid: this.state.userid,
+				jobid: this.state.jobid,
+				rolename: this.state.applicantrole
+			})
+		})
+		.then(response => response.json())
+		.then(jobapp => {
+			console.log("job app is ", jobapp)
+			if (jobapp){
+				this.setState({appsubmitted: true});
+			}
+		})
+
 	}
 
 	render() {
@@ -193,7 +218,38 @@ class ContractPosting extends React.Component {
 					//         ><FaCheck/></button>
 					// 	</div>
 					// </div>
+
+
+					//for the dropdown list we'll do an objects.map for all roles. if a role is in the banned list, it won't show up
 				}
+				{
+					(this.state.job.employerid===this.state.userid)
+					? <div> <p> This is your job </p> </div>
+					:(
+						(this.state.appsubmitted)
+						? <h3> Application Submitted </h3>
+						:<div className="formline">
+							<Dropdown id="dropdown-basic-button">
+								<Dropdown.Toggle variant="primary" id="dropdown-basic">
+									{this.state.applicantrole}
+								</Dropdown.Toggle>
+								<Dropdown.Menu className="dropScroll">
+								{
+															// <DropDownRole rolename="stealth"  onPropertyChange={this.onPropertyChange}/>
+									Object.entries(this.state.jobroles['required'].concat(this.state.jobroles['preferred']))
+									.map((role) => {
+										const rolename = role[1]["rolename"];
+										return (<Dropdown.Item value={rolename} onClick={this.onPropertyChange("applicantrole")}>{rolename}</Dropdown.Item>)
+									})
+								}
+								</Dropdown.Menu>
+
+							</Dropdown>
+							<Button variant="primary" onClick={this.onAppSubmit}>Submit Application</Button>
+
+						</div>
+					)
+				}	
 			</div>
 		);
 	}

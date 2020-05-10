@@ -16,12 +16,12 @@ const Navigation = ({isSignedIn, onRouteChange, pageSwitch}) => {
 			<Navbar bg="dark" variant="dark">
 			    <Navbar.Brand href="#home" onClick={() => onRouteChange('home')}>HeroPortal</Navbar.Brand>
 			    <Nav className="mr-auto">
-			      <Nav.Link href="#home" onClick={() => onRouteChange('home')}>Home</Nav.Link>
+			      <Nav.Link onClick={() => onRouteChange('home')}>Home</Nav.Link>
 			      {
 			      	!isSignedIn
 			      	?<div> </div>
 			      	:<div className="flex">
-				    	<Nav.Link href="#profile" onClick={() => onRouteChange('profile')}>Profile</Nav.Link>
+				    	<Nav.Link onClick={() => onRouteChange('profile')}>Profile</Nav.Link>
 			      		<Nav.Link  onClick={() => onRouteChange('contractsetup')}>Post Job</Nav.Link>
 			      		<Nav.Link  onClick={() => onRouteChange('myjobs')}>My Jobs</Nav.Link>
 			      	</div>
@@ -35,7 +35,7 @@ const Navigation = ({isSignedIn, onRouteChange, pageSwitch}) => {
 				      <Nav.Link onClick={() => onRouteChange('signin')}>Sign In</Nav.Link>
 				      <Nav.Link onClick={() => onRouteChange('register')}>Register</Nav.Link>
 			      	</div>
-			      :<Nav.Link href="#signout" onClick={() => onRouteChange('signout')}>Sign Out</Nav.Link>
+			      :<Nav.Link onClick={() => onRouteChange('signout')}>Sign Out</Nav.Link>
 			    }
 			      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
 			      <Button variant="outline-info">Search</Button>

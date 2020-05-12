@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import RoleRequirements from './RoleRequirements/RoleRequirements';
 import DropDownRole from './DropDownRole/DropDownRole';
+import JobApplicants from '../JobApplicants/JobApplicants';
 import './ContractPosting.css';
 
 
@@ -130,6 +131,7 @@ class ContractPosting extends React.Component {
 				this.setState({appsubmitted: true});
 			}
 		})
+		.catch(error => console.log(error));
 
 	}
 
@@ -224,7 +226,10 @@ class ContractPosting extends React.Component {
 				}
 				{
 					(this.state.job.employerid===this.state.userid)
-					? <div> <p> This is your job </p> </div>
+					? <div>
+						<h2> View list of applicants </h2>
+						<JobApplicants jobid={this.state.jobid}/>
+					  </div>
 					:(
 						(this.state.appsubmitted)
 						? <h3> Application Submitted </h3>
@@ -247,7 +252,7 @@ class ContractPosting extends React.Component {
 							</Dropdown>
 							<Button variant="primary" onClick={this.onAppSubmit}>Submit Application</Button>
 
-						</div>
+						 </div>
 					)
 				}	
 			</div>

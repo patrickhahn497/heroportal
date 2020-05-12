@@ -98,7 +98,9 @@ class App extends Component {
     this.setState({route: 'contractposting'});
   }
 
-  onProfileChange = (newprofileid) => {
+  onProfileChange = (newprofileid=this.state.user.id) => {
+    console.log("the new profile id will be ", newprofileid);
+
     this.setState({profileid: newprofileid});
     this.setState({route: 'profile'});
   }
@@ -131,7 +133,7 @@ class App extends Component {
   render() {
     return (
       <div className="wayout">
-        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} pageSwitch={this.pageSwitch}/>
+        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} onProfileChange={this.onProfileChange}/>
         {
           (this.state.route==="home") 
           ? <Home />:
@@ -139,7 +141,7 @@ class App extends Component {
             <div className="midcontainer shadow-2">
               {
                 {
-                  'profile': <Profile loadUser={this.loadUser} user={this.state.user}/>,
+                  'profile': <Profile loadUser={this.loadUser} user={this.state.user} profileid={this.state.profileid} key={this.state.profileid}/>,
                   'signin': <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>,
                   'register': <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>,
                   'charactersetup': <CharacterSetup id={this.state.user.id} onRouteChange={this.onRouteChange} />,
@@ -148,12 +150,6 @@ class App extends Component {
                   'contractsetup': <ContractSetup employerid={this.state.user.id} pageSwitch={this.onRouteChange} onJobChange={this.onJobChange}/>,
                   'myjobs': <MyJobs user={this.state.user} onJobChange={this.onJobChange} onProfileChange={this.onProfileChange}/>
                 }[this.state.route]
-
-                //<Profile loadUser={this.loadUser} user={this.state.user}/>
-
-                //<CharacterSetup id={this.state.user.id}/>
-                //<ContractPosting user={this.state.user} jobid={1}/>
-                // <ContractSetup employerid={'1'} pageSwitch={this.pageSwitch}/>
 
               }
               

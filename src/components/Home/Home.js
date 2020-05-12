@@ -29,13 +29,16 @@ const Home = ({}) => {
 				</p>
 				<br/>
 
-				<h2> Why HeroPortal? </h2>
-				<p>Efficiency is key.
 
-				Oftentimes, a crisis will not just be stumbled upon on a random patrol of the city. By allowing incidents to be reported, they can be dealt with more efficiently.
-				HeroPortal outlines requirements for the number of heroes required for each request, and which types are needed. By doing this, jobs only take in what heroes are
-				necessary, freeing up other heroes for other jobs.
-				</p>
+				<div className="whyhero">
+					<h2> Why HeroPortal? </h2>
+					<p>Efficiency is key.
+
+					Oftentimes, a crisis will not just be stumbled upon on a random patrol of the city. By allowing incidents to be reported, they can be dealt with more efficiently.
+					HeroPortal outlines requirements for the number of heroes required for each request, and which types are needed. By doing this, jobs only take in what heroes are
+					necessary, freeing up other heroes for other jobs.
+					</p>
+				</div>
 			</div>
 		</div>
 	);

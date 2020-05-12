@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import 'bootstrap/dist/css/bootstrap.min.css';
-const Navigation = ({isSignedIn, onRouteChange, pageSwitch}) => {
+const Navigation = ({isSignedIn, onRouteChange, onProfileChange}) => {
 	//the top panel can potentiallly be made into its own component
 	//if 
 	console.log(isSignedIn);
@@ -21,7 +21,7 @@ const Navigation = ({isSignedIn, onRouteChange, pageSwitch}) => {
 			      	!isSignedIn
 			      	?<div> </div>
 			      	:<div className="flex">
-				    	<Nav.Link onClick={() => onRouteChange('profile')}>Profile</Nav.Link>
+				    	<Nav.Link onClick={() => onProfileChange()}>Profile</Nav.Link>
 			      		<Nav.Link  onClick={() => onRouteChange('contractsetup')}>Post Job</Nav.Link>
 			      		<Nav.Link  onClick={() => onRouteChange('myjobs')}>My Jobs</Nav.Link>
 			      	</div>

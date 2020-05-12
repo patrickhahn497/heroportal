@@ -10,6 +10,7 @@ class Profile extends React.Component  {
 	constructor(props) {
 		super(props);
 		this.state = {
+			profileid: this.props.profileid,
 			abilityList : [],
 			roleList: [],
 			attributes: {
@@ -19,29 +20,31 @@ class Profile extends React.Component  {
                 int: 10,
                 wis: 10,
                 cha: 10
-             }
+             },
+             user: {}
 
 		}
 	}
 
 	componentDidMount(){
-	    fetch('http://localhost:3000/users/'+ this.props.user.id)
+	    fetch('http://localhost:3000/users/'+ this.state.profileid)
 			.then(response => response.json())
 			.then(user => {
 				if (user.id) {
-					this.props.loadUser(user);
+					this.setState({user: user});
 				}
 			})
 			.catch(error => console.log(error));
 
-		fetch('http://localhost:3000/userabilities/'+ this.props.user.id)
+		fetch('http://localhost:3000/userabilities/'+ this.state.profileid)
 			.then(response => response.json())
 			.then(userabilities => {
 				console.log("user abilities: ", userabilities);
 				this.setState({abilityList: userabilities})
 			})
+			.catch(error => console.log(error));
 
-		fetch('http://localhost:3000/userroles/' + this.props.user.id)
+		fetch('http://localhost:3000/userroles/' + this.state.profileid)
 			.then(response => response.json())
 			.then(userroles => {
 				console.log("user roles: ", userroles);
@@ -49,7 +52,7 @@ class Profile extends React.Component  {
 			})
 			.catch(error => console.log(error));
 
-		fetch('http://localhost:3000/attributes/' + this.props.user.id)
+		fetch('http://localhost:3000/attributes/' + this.state.profileid)
 			.then(response => response.json())
 			.then(attributes => {
 				console.log("attributes: ", attributes);
@@ -59,24 +62,24 @@ class Profile extends React.Component  {
 	}
 
 
-	onSubmitSignIn = () => {
-		fetch('http://localhost:3000/signin', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				email: this.state.signInEmail,
-				password: this.state.signInPassword
-			})
-		})
-			.then(response => response.json())
-			.then(user => {
-				if (user.id) {
-					this.props.loadUser(user);
-					this.props.onRouteChange('home');
-				}
-			})
+	// onSubmitSignIn = () => {
+	// 	fetch('http://localhost:3000/signin', {
+	// 		method: 'post',
+	// 		headers: {'Content-Type': 'application/json'},
+	// 		body: JSON.stringify({
+	// 			email: this.state.signInEmail,
+	// 			password: this.state.signInPassword
+	// 		})
+	// 	})
+	// 		.then(response => response.json())
+	// 		.then(user => {
+	// 			if (user.id) {
+	// 				this.props.loadUser(user);
+	// 				this.props.onRouteChange('home');
+	// 			}
+	// 		})
 
-	}
+	// }
 	//the top panel can potentiallly be made into its own component
 	render() {
 		return (
@@ -88,7 +91,7 @@ class Profile extends React.Component  {
 						
 					</div>
 					<div className="textBlock">
-						<h1 id="name"> {this.props.user.name} </h1>
+						<h1 id="name"> {this.state.user.name} </h1>
 						<p id="blurb"> Expert martial combatant with shadow manipulation powers. Enhanced strength, speed, cognition, and reflexes. </p>
 					</div>
 				</div>

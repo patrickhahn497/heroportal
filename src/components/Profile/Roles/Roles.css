@@ -31,3 +31,28 @@
 #support {
 	background-color: #4287f5;
 }
+
+#healer {
+    background-color: green;
+}
+#stealth {
+/*    background-color: green;*/
+}
+#debuffer {
+    background-color: green;
+}
+#defender {
+    background-color: #4287f5;
+}
+#demolitionist {
+    background-color: #780415;
+}
+#perceptionist {
+/*    background-color: green;*/
+}
+#strategist {
+/*    background-color: green;*/
+}
+#technologist {
+/*    background-color: green;*/
+}

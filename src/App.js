@@ -59,8 +59,8 @@ class App extends Component {
 
   constructor() {
     super();
-    this.state = initialState;
-    // this.state = testState;
+     this.state = initialState;
+    //this.state = testState;
 
   }
 
@@ -142,9 +142,9 @@ class App extends Component {
               {
                 {
                   'profile': <Profile loadUser={this.loadUser} user={this.state.user} profileid={this.state.profileid} key={this.state.profileid}/>,
-                  'signin': <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>,
+                  'signin': <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} onProfileChange={this.onProfileChange}/>,
                   'register': <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>,
-                  'charactersetup': <CharacterSetup id={this.state.user.id} onRouteChange={this.onRouteChange} />,
+                  'charactersetup': <CharacterSetup id={this.state.user.id} onRouteChange={this.onRouteChange} onProfileChange={this.onProfileChange}/>,
                   'contractposting': <ContractPosting user={this.state.user} jobid={this.state.jobid}/>,
                   'home': <Home/>,
                   'contractsetup': <ContractSetup employerid={this.state.user.id} pageSwitch={this.onRouteChange} onJobChange={this.onJobChange}/>,

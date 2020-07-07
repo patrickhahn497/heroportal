@@ -5,11 +5,11 @@
 
 html, body {
     margin: 0;
-    height: 100%;
+    min-height: 100vh;
 }
 
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 h1 {
@@ -28,7 +28,8 @@ h1 {
   margin-bottom: 0px;
   flex-grow: 1;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 145vh;
+
 
 }
 
@@ -84,5 +85,5 @@ h1 {
 41
 
 html, body, #app, #app>div {
-  height: 100%
+  min-height: 100%
 }

@@ -11,7 +11,7 @@ const StatFillin = ({stat, value, onPropertyChange}) => {
 	//if 
 
 	return (
-		<div className="mt3 center formline ">
+		<div className="mt3 center formline statblock">
 			<label className="db fw6 lh-copy f6">{stat}  &nbsp;  </label>
 			<Dropdown>
 			  <Dropdown.Toggle variant="success" id="dropdown-basic">

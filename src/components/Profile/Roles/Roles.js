@@ -7,6 +7,13 @@ import './Roles.css';
 import stealthPic from './Stealth.png';
 import combatPic from './Combat.png';
 import supportPic from './Support.png';
+import debufferPic from './Debuffer.png';
+import defenderPic from './Defender.png';
+import healerPic from './Healer.png';
+import demolitionistPic from './Demolitionist.png';
+import perceptionistPic from './Perceptionist.png';
+import strategistPic from './Strategist.png';
+import technologistPic from './Technologist.png';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 const Roles = ({roleList}) => {
@@ -15,7 +22,14 @@ const Roles = ({roleList}) => {
 	const mapRoleToPic = {
 		"stealth": stealthPic,
 		"combat": combatPic,
-		"support": supportPic
+		"support": supportPic,
+		"healer": healerPic,
+		"debuffer": debufferPic,
+		"defender": defenderPic,
+		"demolitionist": demolitionistPic,
+		"perceptionist": perceptionistPic,
+		"strategist": strategistPic,
+		"technologist": technologistPic
 	}
 
 	console.log("real roles", roleList);

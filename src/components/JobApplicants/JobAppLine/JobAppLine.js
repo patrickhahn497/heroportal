@@ -8,7 +8,7 @@ import {TiDeleteOutline} from "react-icons/ti";
 import './JobAppLine.css';
 
 
-const JobAppLine = ({rolename, name, status, jobappid, onStatusChange}) => {
+const JobAppLine = ({rolename, name, userid, status, jobappid, onStatusChange}) => {
 	//the top panel can potentiallly be made into its own component
 	//if 
 
@@ -19,13 +19,13 @@ const JobAppLine = ({rolename, name, status, jobappid, onStatusChange}) => {
 				<button
 			        	type="button"
 			        	style={{backgroundColor: 'green'}}
-			        	onClick={()=>onStatusChange(jobappid, "accepted")}
+			        	onClick={()=>onStatusChange(jobappid, "accepted", userid, rolename)}
 			      ><FaPlus/>
 			    </button>
 			    <button
 			        	type="button"
 			        	style={{backgroundColor: 'red'}}
-			        	onClick={()=>onStatusChange(jobappid, "rejected")}
+			        	onClick={()=>onStatusChange(jobappid, "rejected", userid, rolename)}
 			      ><FaMinus/>
 			    </button>
 			</div>

@@ -27,7 +27,7 @@ class JobApplicants extends React.Component  {
 			.catch(error => console.log(error))
 	}
 
-	onStatusChange = (jobappid, newstatus) => {
+	onStatusChange = (jobappid, newstatus, userid, rolename) => {
 		//jobapp should have unique jobapp id's
 
 		let temp = this.state.jobapps[jobappid];
@@ -35,12 +35,12 @@ class JobApplicants extends React.Component  {
 		this.setState({jobapps: {...this.state.jobapps, [jobappid]: temp}});
 
 		fetch('http://localhost:3000/jobapplications', {
-			method: 'patch',
+			method: 'put',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
-				applicantid: this.state.userid,
-				jobid: this.state.jobid,
-				rolename: this.state.applicantrole,
+				applicantid: userid,
+				jobid: this.props.jobid,
+				rolename: rolename,
 				status: newstatus
 			})
 		})
@@ -58,10 +58,10 @@ class JobApplicants extends React.Component  {
 			 {
 				Object.entries(this.state.jobapps).map((jobapps) => {
 					console.log("please work", jobapps);
-					const {name, rolename, status, jobappid} = jobapps[1];
+					const {name, rolename, status, jobappid, id} = jobapps[1];
 						// console.log(roleName);
 						// console.log(roleValue);
-						return <JobAppLine name={name} rolename={rolename} status={status} jobappid={jobappid}
+						return <JobAppLine name={name} userid={id} rolename={rolename} status={status} jobappid={jobappid}
 							onStatusChange={this.onStatusChange}/>
 					//return (<div> <p> {name} : {rolename} - {status}</p></div>);
 				})

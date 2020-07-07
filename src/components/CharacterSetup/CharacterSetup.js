@@ -23,7 +23,8 @@ class CharacterSetup extends React.Component {
 			name: '',
 			firstname: '',
 			lastname: '',
-			heroname: '',
+			imageurl: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+			description: 'bop',
 			strength: '10',
 			dexterity: '10',
 			constitution: '10',
@@ -92,9 +93,11 @@ class CharacterSetup extends React.Component {
 
 
 	onPropertyChange = (property) => (event) => {
-		console.log(event.target);
+		console.log(property, " should be changing ", event.target.value);
+		// console.log(this.state.description);
 		
-		this.setState({[property]:event.target.getAttribute('value') });
+		// this.setState({[property]:event.target.getAttribute('value') });
+		this.setState({[property]:event.target.value });
 		console.log(this.state[property]);
 	}
 
@@ -169,6 +172,9 @@ class CharacterSetup extends React.Component {
 				id: this.state.id,
 				firstname: this.state.firstname,
 				lastname: this.state.lastname,
+				description: this.state.description,
+				profilepictureurl: this.state.imageurl,
+
 				// name: this.state.name,
 				strength: this.state.strength,
 				dexterity: this.state.dexterity,
@@ -184,6 +190,7 @@ class CharacterSetup extends React.Component {
 			.then(response => response.json())
 			.then(user => {
 				console.log(user);
+				this.props.onProfileChange(user.id);
 				this.props.onRouteChange('profile');
 			})
 		//console.log(this.state);
@@ -226,6 +233,25 @@ class CharacterSetup extends React.Component {
 			        	style={{backgroundColor: this.buttonColor('lastname')}}
 			        ><FaCheck/></button>
 				</div>
+				<textarea rows="5" cols="55" name="description" placeholder="Profile Description" 
+		        	className="profile-description pa2 input-reset ba bg-white hover-bg-black hover-black "
+		        	onChange={this.onPropertyChange('description')}
+		        	value={this.state.description}
+		        >
+		        </textarea>
+		        <div className="image-block">
+		        	<input 
+			        	className="pa2 input-reset ba bg-white hover-bg-black hover-black" 
+			        	type="text" 
+			        	name="imageurl"  
+			        	id="imageurl"
+			        	onChange={this.onPropertyChange('imageurl')}
+			        	placeholder="Profile Picture Url"
+			        />
+			        <img src={this.state.imageurl}
+			        	 alt=""
+			        	 className="profilePic" />
+		        </div>
 				<div className="stats">
 					<StatFillin stat="strength" value={this.state.strength} onPropertyChange={this.onPropertyChange}/>
 					<StatFillin stat="dexterity" value={this.state.dexterity} onPropertyChange={this.onPropertyChange}/>
@@ -233,8 +259,9 @@ class CharacterSetup extends React.Component {
 					<StatFillin stat="intelligence" value={this.state.intelligence} onPropertyChange={this.onPropertyChange}/>
 					<StatFillin stat="wisdom" value={this.state.wisdom} onPropertyChange={this.onPropertyChange}/>
 					<StatFillin stat="charisma" value={this.state.charisma} onPropertyChange={this.onPropertyChange}/>
-					<RoleFillin roles={this.state.roles} onRoleSelect={this.onRoleSelect} roleColor={this.roleColor}/>
+					
 				</div>
+				<RoleFillin roles={this.state.roles} onRoleSelect={this.onRoleSelect} roleColor={this.roleColor}/>
 				<div className="center">
 					<h3> Abilities </h3>
 					<AbilityList setProperty={this.setProperty} onPropertyChange={this.onRouteChange}/>

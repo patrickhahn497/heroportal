@@ -37,8 +37,10 @@ const Navigation = ({isSignedIn, onRouteChange, onProfileChange}) => {
 			      	</div>
 			      :<Nav.Link onClick={() => onRouteChange('signout')}>Sign Out</Nav.Link>
 			    }
-			      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-			      <Button variant="outline-info">Search</Button>
+			    {
+			      // <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+			      // <Button variant="outline-info">Search</Button>
+			  	}
 			    </Form>
 			</Navbar>
 		</div>
